@@ -1,7 +1,7 @@
 ![](https://kingofnull.github.io/gramjs-browser-build/tg-ep-finder-preview-01.jpg)
 
 ### Introduction
-This script applies to your MAL CURRENTLY WATCHING page and show a link of next episode of your last seen episode in front of each show.
+This script applies to your MAL CURRENTLY WATCHING page and show a link of next episode of your last seen episode in front of each anime.
 
 
 ### How to config for the first time
