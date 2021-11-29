@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Telegram new episode finder for MAL watching list page
 // @namespace    https://github.com/kingofnull/mal-tg-episode-finder
-// @version      1.1
+// @version      1.2
 // @description  Find new unwatched episode from your disired Telegram channel/group/peer... and show a link to it in front of each anime on your MAL CURRENTLY WATCHING page.
 // @author       KingOfNull
 // @homepage     https://github.com/kingofnull/mal-tg-episode-finder
