@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         Telegram new episode finder for MAL watching list page
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/kingofnull/mal-tg-episode-finder
 // @version      1.1
 // @description  Find new unwatched episode from your disired Telegram channel/group/peer... and show a link to it in front of each anime on your MAL CURRENTLY WATCHING page.
 // @author       KingOfNull
+// @homepage     https://github.com/kingofnull/mal-tg-episode-finder
 // @match        https://myanimelist.net/animelist/*?status=1
 // @icon         https://www.google.com/s2/favicons?domain=myanimelist.net
 // @grant        GM_addStyle
@@ -80,6 +81,7 @@ GM_addStyle(`
         let fname=message.media.document.attributes.at().fileName;
         console.log(result.count,fname); // prints the result
 
+       /*
         const linkResult = await client.invoke(
             new Api.channels.ExportMessageLink({
                 channel: peerId,
@@ -88,6 +90,8 @@ GM_addStyle(`
             })
         );
         let link=linkResult.link;
+*/
+        let link=`tg://privatepost?channel=${message.peerId.channelId}&post=${message.id}`;
         console.log(link);
         return {link,fname};
     }
@@ -118,7 +122,11 @@ GM_addStyle(`
     for(let r of $("td.title a.link").get()){
         let $r=$(r);
         let title=$r.text();
-        let curEp=$r.parents("tr").find("td.progress a.link").text();
+        let curEp=$r.parents("tr").find("td.progress a.link").text() ?? "0";
+        if(!Number(curEp)){
+            curEp="0";
+        }
+
         console.log(title,":",curEp);
         let data=await haveNewEp(title,curEp,peerId);
         if(data){
