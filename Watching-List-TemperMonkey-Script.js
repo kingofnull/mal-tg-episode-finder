@@ -32,7 +32,7 @@ GM_addStyle(`
     color: #a70000 !important;
     background: white;
 }
-
+ 
 .rename-btn{
     background: #009688;
     padding: 0.2em 0.4em;
