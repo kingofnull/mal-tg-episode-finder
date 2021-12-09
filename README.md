@@ -1,4 +1,4 @@
-![](https://kingofnull.github.io/gramjs-browser-build/tg-ep-finder-preview-01.jpg)
+![](WatchingListPreview.jpg)
 
 ### Introduction
 This script applies to your MAL CURRENTLY WATCHING page and show a link of next episode of your last seen episode in front of each anime.
@@ -13,3 +13,6 @@ This script applies to your MAL CURRENTLY WATCHING page and show a link of next 
 3) Enter received verification code.
 
 4) A prompt requests for peer id. Enter your search target peer id. You can find it by forward it's message to `@username_to_id_bot`. The using telegram user most has access to this peer.
+
+** If your anime name differs from Mal anime title click rename and enter exact name from your telegram peer.
+
