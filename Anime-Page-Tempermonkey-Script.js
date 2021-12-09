@@ -23,6 +23,7 @@
 GM_addStyle(`
 .new-ep-link{
  background: #a70000;
+ color: white !important;
  padding: 5px 7px;
  border-radius: 7px;
  display:inline-block;
@@ -183,7 +184,7 @@ GM_addStyle(`
         client.disconnect();
 
         if(data){
-            $("<a>",{href:data.link,class:'new-ep',target:"tgLinksWin", id:'next-ep-link'})
+            $("<a>",{href:data.link,class:'new-ep-link',target:"tgLinksWin", id:'next-ep-link'})
                 .text("New Ep ! : "+data.fname)
                 .appendTo($r.parent());
         }
