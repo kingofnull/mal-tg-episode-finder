@@ -142,25 +142,28 @@ function initRenamer($title){
     return $title.text();
 }
 
-async function searchAllPeers(client,title,curEp){
-    let data;
+async function searchAllPeers(client,title,curEp,find_all){
+    let dataList=[];
     for(let pId of getPeerIds()){
         try{
-            data=await findNewEp(client,title,curEp,pId);
+            let data=await findNewEp(client,title,curEp,pId);
+            if(data){
+                dataList.push(data);
+            }
         }catch(e){
             console.error('FindNewEp Failed,PID:',pId,e);
         }
 
-        if(data){
+        if(!find_all && dataList.length>0){
             break;
         }
     }
 
-    return data;
+    return dataList;
 }
 
-async function findAndShowLink($r,curEp,_client){
-    $r.siblings('.new-ep-link').remove();
+async function findAndShowLink($r,curEp,_client,find_all){
+    $r.siblings('.new-ep-link,.new-ep-link-br').remove();
     let client;
     if(!_client){
         client=await initTgClient();
@@ -169,10 +172,6 @@ async function findAndShowLink($r,curEp,_client){
     }
 
     let title=initRenamer($r);
-    /*
-    let curEp=$("#myinfo_watchedeps").val();
-
-     */
 
     if(!Number(curEp)){
         curEp="0";
@@ -180,13 +179,16 @@ async function findAndShowLink($r,curEp,_client){
     console.log(title,":",curEp);
 
 
-    let data=await searchAllPeers(client,title,curEp);
+    let dataList=await searchAllPeers(client,title,curEp,find_all);
 
-    if(data){
+    for(let data of dataList){
         $("<a>",{href:data.link,class:'new-ep-link',target:"tgLinksWin", id:'next-ep-link'})
             .text("New Ep ! : "+data.fname)
             .appendTo($r.parent());
+        $("<br>",{class:'new-ep-link-br'})
+            .appendTo($r.parent());
     }
+
 
     if(!_client){
         client.disconnect();
@@ -196,7 +198,7 @@ async function findAndShowLink($r,curEp,_client){
 async function findAndShowLinkSinglePage(){
     let $r=$(".title-name").first();
     let ep=$("input#myinfo_watchedeps.inputtext.js-user-episode-seen").val()*1;
-    await findAndShowLink($r, ep);
+    await findAndShowLink($r, ep,null,true);
 }
 
 (async ()=> {
@@ -263,22 +265,7 @@ async function findAndShowLinkSinglePage(){
                 let _curEp=$r.parents("tr").find("td.progress a.link").text();
                 findAndShowLink($r,_curEp);
             });
-/*
-            if(!Number(curEp)){
-                curEp="0";
-            }
 
-            title=initRenamer($r);
-
-            console.log(title,":",curEp);
-
-            let data=await searchAllPeers(client,title,curEp);
-
-            if(data){
-                $("<a>",{href:data.link,class:'new-ep-link',target:"tgLinksWin"})
-                    .text("New Ep ! : "+data.fname)
-                    .appendTo($r.parents("td"));
-            } */
         }
         client.disconnect();
     }
@@ -297,6 +284,8 @@ async function findAndShowLinkSinglePage(){
              padding:5px;
              margin: 0.5em 0;
             }
+
+
 
             a.new-ep-link:hover {
                 color: #a70000 !important;
@@ -320,35 +309,6 @@ async function findAndShowLinkSinglePage(){
                 font-family: monospace !important;
             }
         `);
-        /*
-        async function findAndShowLink(){
-            $('#next-ep-link').remove();
-            let client=await initTgClient();
-
-
-
-            let $r=$(".title-name").first();
-            let title=initRenamer($r);
-
-            let curEp=$("#myinfo_watchedeps").val();
-            if(!Number(curEp)){
-                curEp="0";
-            }
-            console.log(title,":",curEp);
-
-
-            let data=await searchAllPeers(client,title,curEp);
-
-            if(data){
-                $("<a>",{href:data.link,class:'new-ep-link',target:"tgLinksWin", id:'next-ep-link'})
-                    .text("New Ep ! : "+data.fname)
-                    .appendTo($r.parent());
-            }
-
-            client.disconnect();
-
-        }
- */
 
 
 
